@@ -1,5 +1,4 @@
 /* eslint-disable object-curly-newline */
-const { findById } = require('../repositories/ContactRepository');
 const ContactRepository = require('../repositories/ContactRepository');
 
 class ContactController {
