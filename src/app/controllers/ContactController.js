@@ -1,3 +1,5 @@
+/* eslint-disable object-curly-newline */
+const { findById } = require('../repositories/ContactRepository');
 const ContactRepository = require('../repositories/ContactRepository');
 
 class ContactController {
@@ -18,9 +20,55 @@ class ContactController {
     response.json(contact);
   }
 
-  store() {}
+  async store(request, response) {
+    const { name, email, phone, category_id } = request.body;
 
-  update() {}
+    if (!name) {
+      return response.status(400).json({ error: 'name is required' });
+    }
+
+    const contactExist = await ContactRepository.findByEmail(email);
+    if (contactExist) {
+      return response.status(400).json({ error: 'Email already in use' });
+    }
+
+    const contact = await ContactRepository.create({
+      name,
+      email,
+      phone,
+      category_id,
+    });
+
+    response.json(contact);
+  }
+
+  async update(request, response) {
+    const { id } = request.params;
+    const { name, email, phone, category_id } = request.body;
+
+    const contactExists = await ContactRepository.findById(id);
+    if (!contactExists) {
+      response.status(404).json({ error: 'user not found' });
+    }
+
+    const contactExist = await ContactRepository.findByEmail(email);
+    if (contactExist && contactExist.id !== id) {
+      return response.status(400).json({ error: 'Email already in use' });
+    }
+
+    if (!name) {
+      return response.status(400).json({ error: 'name is required' });
+    }
+
+    const contact = await ContactRepository.update(id, {
+      name,
+      email,
+      phone,
+      category_id,
+    });
+
+    response.json(contact);
+  }
 
   async delete(request, response) {
     const { id } = request.params;
