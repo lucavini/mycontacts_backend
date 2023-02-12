@@ -5,7 +5,12 @@
   "license": "MIT",
   "author": "Lucas Santos",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "docker:create": "sudo docker run --name pg -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -p 5432:5432 -d postgres",
+    "docker:list": "sudo docker container ls",
+    "docker:listAll": "sudo docker container ls -a",
+    "docker:stop": "sudo docker stop pg",
+    "docker:start": "sudo docker start pg"
   },
   "dependencies": {
     "express": "^4.18.2",
