@@ -14,7 +14,7 @@ class ContactController {
     const contact = await ContactRepository.findById(id);
 
     if (!contact) {
-      return response.status(404).json({ error: 'user not found' });
+      return response.status(404).json({ error: 'contact not found' });
     }
 
     response.json(contact);
@@ -48,7 +48,7 @@ class ContactController {
 
     const contactExists = await ContactRepository.findById(id);
     if (!contactExists) {
-      response.status(404).json({ error: 'user not found' });
+      response.status(404).json({ error: 'contact not found' });
     }
 
     const contactExist = await ContactRepository.findByEmail(email);
@@ -75,7 +75,7 @@ class ContactController {
     const contact = await ContactRepository.findById(id);
 
     if (!contact) {
-      return response.status(404).json({ error: 'user not found' });
+      return response.status(404).json({ error: 'contact not found' });
     }
 
     await ContactRepository.deleteById(id);
