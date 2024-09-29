@@ -43,9 +43,8 @@ class ContactRepository {
 
   async update(id, { name, email, phone, category_id }) {
     const sql = `
-    INSERT INTO contacts(name, email, phone, category_id)
-    VALUES('${name}','${email}','${phone}', '${category_id}') RETURNING *
-    `;
+      UPDATE contacts
+      SET name = '${name}', email = '${email}', phone = '${phone}', category_id = '${category_id}' WHERE id = '${id}' RETURNING *`;
 
     const row = await db.query(sql);
 
