@@ -13,10 +13,6 @@ class ContactController {
   async show(request, response) {
     const { id } = request.params;
 
-    if (!isValidUUID(id)) {
-      return response.status(400).json({ error: 'Invalid user id' });
-    }
-
     const contact = await ContactRepository.findById(id);
 
     if (!contact) {

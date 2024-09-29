@@ -19,7 +19,7 @@ class ContactRepository {
     SELECT contacts.*, categories.name AS category_name 
     FROM contacts 
     LEFT JOIN categories ON categories.id = contacts.category_id
-    WHERE contacts.id = $1`, [id]);
+    WHERE contacts.id = '${id}'`);
     return row;
   }
 
@@ -31,30 +31,25 @@ class ContactRepository {
   }
 
   async create({ name, email, phone, category_id }) {
-    const [row] = await db.query(
-      `
+    const sql = `
     INSERT INTO contacts(name, email, phone, category_id)
-    VALUES($1, $2, $3, $4)
-    RETURNING *
-    `,
-      [name, email, phone, category_id]
-    );
+    VALUES('${name}','${email}','${phone}', '${category_id}') RETURNING *
+    `;
+
+    const row = await db.query(sql);
 
     return row;
   }
 
   async update(id, { name, email, phone, category_id }) {
-    const [rows] = await db.query(
-      `
-      UPDATE contacts
-      SET name = $1, email = $2, phone = $3, category_id = $4
-      WHERE id = $5
-      RETURNING *
-    `,
-      [name, email, phone, category_id, id]
-    );
+    const sql = `
+    INSERT INTO contacts(name, email, phone, category_id)
+    VALUES('${name}','${email}','${phone}', '${category_id}') RETURNING *
+    `;
 
-    return rows;
+    const row = await db.query(sql);
+
+    return row;
   }
 
   async deleteById(id) {
