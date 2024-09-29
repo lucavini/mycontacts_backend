@@ -10,7 +10,8 @@
     "docker:list": "sudo docker container ls",
     "docker:listAll": "sudo docker container ls -a",
     "docker:stop": "sudo docker stop pg",
-    "docker:start": "sudo docker start pg"
+    "docker:start": "sudo docker start pg",
+    "vercel-build": "echo hello"
   },
   "dependencies": {
     "express": "^4.18.2",
